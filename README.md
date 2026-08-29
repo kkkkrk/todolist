@@ -2,7 +2,7 @@
 할 일을 추가하고 수정하고 삭제하는 연습용 사이트
 
 # 실행방법
-npm install
+npm install  
 npm run dev
 
 
