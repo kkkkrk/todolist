@@ -1,6 +1,6 @@
 import TodoItem from "./TodoItem";
 import { useState } from "react";
-const List = ({todos,changeCheckbox}) => {
+const List = ({todos,changeCheckbox, deleteTodos}) => {
     const [query, setQuery] = useState('');
     const onChangeHandle = (e) => {
         setQuery(e.target.value);
@@ -15,7 +15,12 @@ const List = ({todos,changeCheckbox}) => {
             <input value = {query} type="text" placeholder="검색할거" onChange={onChangeHandle}/>
             {
                 filterTodos(query).map((todo)=>{
-                    return(<TodoItem key={todo.id} todo = {todo} changeCheckbox = {changeCheckbox}/>);
+                    return(<TodoItem 
+                        key={todo.id} 
+                        todo = {todo} 
+                        changeCheckbox = {changeCheckbox}
+                        deleteTodos = {deleteTodos}
+                    />);
                 })
             }
         </div>

@@ -1,5 +1,5 @@
 import './App.css'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import Editor from './components/Editor'
 import Header from './components/Header'
 import List from './components/List'
@@ -25,6 +25,7 @@ function App() {
     }
   ];
   const [todos, setTodos] = useState(initialValue);
+  const nextId = useRef(3);
   const changeCheckbox = (targetId) => {
     setTodos((prev) => 
       prev.map((item) => 
@@ -34,11 +35,29 @@ function App() {
       )
     )
   }
+  const addTodos = (newContent) => {
+    setTodos((prev) => 
+      [...prev, {
+        id: nextId.current++,
+        isDone: false,
+        content: newContent,
+        date: new Date().getTime()}]
+    )
+  }
+  const deleteTodos = (targetId) => {
+    setTodos((prev) => 
+      prev.filter(item => item.id !== targetId)
+    )
+  }
   return (
     <div className='App'>
       <Header/>
-      <Editor/>
-      <List todos = {todos} changeCheckbox = {changeCheckbox}/>
+      <Editor addTodos = {addTodos}/>
+      <List 
+        todos = {todos} 
+        changeCheckbox = {changeCheckbox} 
+        deleteTodos = {deleteTodos}
+      />
     </div>
   )
 }
