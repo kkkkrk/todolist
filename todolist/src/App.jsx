@@ -25,12 +25,20 @@ function App() {
     }
   ];
   const [todos, setTodos] = useState(initialValue);
-
+  const changeCheckbox = (targetId) => {
+    setTodos((prev) => 
+      prev.map((item) => 
+        item.id === targetId
+        ? {...item, isDone: !item.isDone}
+        : item
+      )
+    )
+  }
   return (
     <div className='App'>
       <Header/>
       <Editor/>
-      <List todos = {todos}/>
+      <List todos = {todos} changeCheckbox = {changeCheckbox}/>
     </div>
   )
 }
